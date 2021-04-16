@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "this is the first rough draft of Roomie",
+  "main": "index.js",
+  "engines": {
+    "node": "14.15.4",
+    "npm": "6.14.11"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/superbrobenji/Roomie_v1.0.git"
+  },
+  "author": "Benjamin Swanepoel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/superbrobenji/Roomie_v1.0/issues"
+  },
+  "homepage": "https://github.com/superbrobenji/Roomie_v1.0#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
