@@ -8,7 +8,9 @@
     "npm": "6.14.11"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "push-dev": "git push heroku_dev && git push origin develop",
+    "push-prod": "git push herolku_prod && git push origin master"
   },
   "repository": {
     "type": "git",
