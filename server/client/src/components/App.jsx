@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-const Landing = () => <div>Landing</div>
-const header = () => <div>Header</div>
-}
+const Landing = () => <div>Landing</div>;
+const header = () => <div>Header</div>;
 
 const App = () => {
 	return (
