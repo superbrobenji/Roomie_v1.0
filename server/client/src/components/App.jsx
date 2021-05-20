@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	BrowserRouter,
 	Route,
 } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import * as actions from '../actions';
+import Header from './Header';
 
 const Landing = () => <div>Landing</div>;
-const Header = () => <div>Header</div>;
 
-const App = () => (
-	<React.StrictMode>
-		<BrowserRouter>
-			<div>
-				<Header />
-				<Route exact path="/" component={Landing} />
+const App = (props) => {
+	useEffect(() => {
+		props.fetchUser();
+	}, []);
+
+	return (
+		<React.StrictMode>
+			<div className="container">
+				<BrowserRouter>
+					<div>
+						<Header />
+						<Route
+							exact
+							path="/"
+							component={Landing}
+						/>
+					</div>
+				</BrowserRouter>
 			</div>
-		</BrowserRouter>
-	</React.StrictMode>
-);
-export default App;
+		</React.StrictMode>
+	);
+};
+
+App.propTypes = {
+	fetchUser: PropTypes.func.isRequired,
+};
+
+export default connect(null, actions)(App);

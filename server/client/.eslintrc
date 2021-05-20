@@ -7,8 +7,9 @@
     "extends": "airbnb",
     "rules": {
         "react/jsx-indent" : ["error", "tab"],
+        "react/jsx-indent-props" : ["error", "tab"],
         "indent": [ "error", "tab", { "SwitchCase": 1 }],
         "linebreak-style": 0,
-        "no-tabs": ["warn", { "allowIndentationTabs": true }]
+        "no-tabs": ["error", { "allowIndentationTabs": true }]
     }
 }
