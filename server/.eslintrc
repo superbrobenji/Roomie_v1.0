@@ -28,6 +28,7 @@
         ],
         "consistent-return": [
             "off"
-        ]
+        ],
+        "global-require": "off"
     }
 }
