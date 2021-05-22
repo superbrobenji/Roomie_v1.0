@@ -34,6 +34,7 @@ passport.use(
 				googleId: profile.id,
 			});
 			if (existingUser)
+				//TODO add create account flow trigger here
 				return done(null, existingUser);
 			const user = await new User({
 				googleId: profile.id,

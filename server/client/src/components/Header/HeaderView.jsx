@@ -1,23 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const HeaderView = ({ funcHandleLoginRender }) => (
-	<>
-		<nav>
-			<div className="nav-wrapper">
-				<a href="/" className="left brand-logo">
-					Test Header
-				</a>
-				<ul className="right">
-					{funcHandleLoginRender()}
-				</ul>
-			</div>
-		</nav>
-	</>
-);
+const HeaderView = ({
+	handleLoginRender,
+	getLogoUrl,
+}) => {
+	const { url, text } = handleLoginRender;
+	return (
+		<>
+			<nav>
+				<div className="nav-wrapper">
+					<Link
+						to={getLogoUrl()}
+						className="left brand-logo"
+					>
+						Test Header
+					</Link>
+					<ul className="right">
+						<li>
+							{ url ? <a href={url}>{text}</a> : text}
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</>
+	);
+};
 
 export default HeaderView;
 
 HeaderView.propTypes = {
-	funcHandleLoginRender: PropTypes.func.isRequired,
+	handleLoginRender: PropTypes.shape({
+		url: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+		text: PropTypes.string,
+	}).isRequired,
+	getLogoUrl: PropTypes.func.isRequired,
 };

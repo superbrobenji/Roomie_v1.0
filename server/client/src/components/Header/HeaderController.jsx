@@ -5,30 +5,22 @@ import PropTypes from 'prop-types';
 import HeaderView from './HeaderView';
 
 const HeaderController = ({ auth }) => {
-	console.log(auth);
 	const handleLoginRender = () => {
-		if (auth.loading) return 'loading';
+		if (auth.loading) return { url: false, text: 'loading' };
 		switch (auth.data) {
 			case false:
-				return (
-					<li>
-						<a href="/auth/google">
-							Login with google
-						</a>
-					</li>
-				);
+				return { url: '/auth/google', text: 'Login with google' };
 			default:
-				return (
-					<li>
-						<a href="/api/logout">Logout</a>
-					</li>
-				);
+				return { url: '/api/logout', text: 'Logout' };
 		}
 	};
 
+	const getLogoUrl = () => (auth ? '/home' : '/');
+
 	return (
 		<HeaderView
-			funcHandleLoginRender={handleLoginRender}
+			handleLoginRender={handleLoginRender()}
+			getLogoUrl={getLogoUrl}
 		/>
 	);
 };
@@ -39,8 +31,6 @@ export default connect(
 	mapStateToProps,
 	null,
 )(HeaderController);
-
-HeaderController.defaultProps = { auth: null };
 
 HeaderController.propTypes = {
 	auth: PropTypes.shape({
@@ -54,5 +44,5 @@ HeaderController.propTypes = {
 			),
 		]),
 		loading: PropTypes.bool,
-	}),
+	}).isRequired,
 };
