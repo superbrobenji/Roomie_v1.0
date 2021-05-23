@@ -7,15 +7,15 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as actions from '../actions';
+import { fetchUser } from '../redux/actions';
 
 import Header from './Header';
 import Landing from './Landing';
 import Home from './Home';
 
-const App = ({ fetchUser, auth }) => {
+const App = ({ auth, ...props }) => {
 	useEffect(() => {
-		fetchUser();
+		props.fetchUser();
 	}, []);
 
 	return (
@@ -24,11 +24,12 @@ const App = ({ fetchUser, auth }) => {
 				<BrowserRouter>
 					<div>
 						<Header />
-						<Route
-							exact
-							path="/"
-						>
-							{!auth.loading && auth.data ? <Redirect to="/home" /> : <Landing />}
+						<Route exact path="/">
+							{!auth.loading && auth.data ? (
+								<Redirect to="/home" />
+							) : (
+								<Landing />
+							)}
 						</Route>
 						<Route path="/home" component={Home} />
 					</div>
@@ -56,4 +57,6 @@ App.propTypes = {
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-export default connect(mapStateToProps, actions)(App);
+export default connect(mapStateToProps, {
+	fetchUser,
+})(App);
