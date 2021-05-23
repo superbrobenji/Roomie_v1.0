@@ -1,38 +1,22 @@
 import React, { useEffect } from 'react';
-import {
-	BrowserRouter,
-	Redirect,
-	Route,
-} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as actions from '../actions';
+import { fetchUser } from '../redux/actions';
+import { authPropTypes } from '../helpers/propTypesFactory';
 
+import Router from '../router';
 import Header from './Header';
-import Landing from './Landing';
-import Home from './Home';
 
-const App = ({ fetchUser, auth }) => {
+const App = ({ auth, ...props }) => {
 	useEffect(() => {
-		fetchUser();
+		props.fetchUser();
 	}, []);
 
 	return (
 		<React.StrictMode>
 			<div className="container">
-				<BrowserRouter>
-					<div>
-						<Header />
-						<Route
-							exact
-							path="/"
-						>
-							{!auth.loading && auth.data ? <Redirect to="/home" /> : <Landing />}
-						</Route>
-						<Route path="/home" component={Home} />
-					</div>
-				</BrowserRouter>
+				<Router auth={auth} Header={Header} />
 			</div>
 		</React.StrictMode>
 	);
@@ -40,20 +24,11 @@ const App = ({ fetchUser, auth }) => {
 
 App.propTypes = {
 	fetchUser: PropTypes.func.isRequired,
-	auth: PropTypes.shape({
-		data: PropTypes.oneOfType([
-			PropTypes.bool,
-			PropTypes.objectOf(
-				PropTypes.oneOfType([
-					PropTypes.string,
-					PropTypes.number,
-				]),
-			),
-		]),
-		loading: PropTypes.bool,
-	}).isRequired,
+	...authPropTypes,
 };
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-export default connect(mapStateToProps, actions)(App);
+export default connect(mapStateToProps, {
+	fetchUser,
+})(App);
